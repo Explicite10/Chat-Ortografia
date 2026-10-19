@@ -6,11 +6,9 @@
   const btnLimpiar = $("btn-limpiar");
   const btnEscuchar = $("btn-escuchar");
   const btnCopiar = $("btn-copiar");
-  const btnUsar = $("btn-usar");
   const error = $("error");
   const resultado = $("resultado");
   const corregidoEl = $("corregido");
-  const diffEl = $("diff");
   const resumen = $("resumen");
   const advertencia = $("advertencia");
   const estado = $("estado");
@@ -69,26 +67,6 @@
   function pintarResultado(d) {
     ultimoCorregido = d.corregido;
     corregidoEl.textContent = d.corregido;
-    diffEl.innerHTML = "";
-    for (const seg of d.cambios) {
-      if (seg.tipo === "igual") {
-        diffEl.appendChild(document.createTextNode(seg.antes));
-      } else {
-        if (seg.antes.trim()) {
-          const q = document.createElement("span");
-          q.className = "quitado";
-          q.textContent = seg.antes;
-          diffEl.appendChild(q);
-          diffEl.appendChild(document.createTextNode(" "));
-        }
-        if (seg.despues.trim()) {
-          const a = document.createElement("span");
-          a.className = "agregado";
-          a.textContent = seg.despues;
-          diffEl.appendChild(a);
-        }
-      }
-    }
     if (d.advertencias && d.advertencias.length) {
       advertencia.textContent = "Revisa el resultado con cuidado: " + d.advertencias.join(" ");
       advertencia.hidden = false;
@@ -117,13 +95,6 @@
     mostrarError("");
     window.speechSynthesis?.cancel();
     texto.focus();
-  });
-
-  btnUsar.addEventListener("click", () => {
-    texto.value = ultimoCorregido;
-    resultado.hidden = true;
-    texto.focus();
-    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   btnCopiar.addEventListener("click", async () => {

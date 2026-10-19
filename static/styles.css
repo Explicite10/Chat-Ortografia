@@ -17,8 +17,6 @@
   --acento: #1d9a6c;
   --acento-hover: #157a55;
   --peligro: #c0392b;
-  --quitado-bg: #fdecea;
-  --quitado: #a93226;
   --agregado-bg: #e6f6ee;
   --agregado: #14714f;
   --radio: clamp(10px, 2vw, 14px);
@@ -143,7 +141,7 @@ textarea:focus { outline: none; border-color: var(--primario); box-shadow: 0 0 0
 .btn-escuchar:hover { background: var(--acento-hover); }
 .btn-secundario { background: #fff; color: var(--primario); border: 2px solid var(--borde); }
 .btn-secundario:hover { border-color: var(--primario); }
-:is(.btn-principal, .btn-secundario, .btn-mic, textarea, summary):focus-visible { outline: 3px solid #f0a500; outline-offset: 2px; }
+:is(.btn-principal, .btn-secundario, .btn-mic, textarea):focus-visible { outline: 3px solid #f0a500; outline-offset: 2px; }
 
 .error { color: var(--peligro); font-weight: 600; margin: 14px 0 0; }
 .advertencia { background: #fff6e0; color: #8a5a00; border-left: 4px solid #f0a500; padding: 10px 14px; border-radius: 8px; margin: 14px 0 0; font-size: clamp(14px, 0.85rem + 0.2vw, 16px); }
@@ -154,12 +152,6 @@ textarea:focus { outline: none; border-color: var(--primario); box-shadow: 0 0 0
 .chip { background: var(--agregado-bg); color: var(--agregado); font-weight: 700; padding: 5px 12px; border-radius: 999px; font-size: clamp(13px, 0.8rem + 0.2vw, 15px); white-space: nowrap; }
 .chip.sin-cambios { background: #eef2f7; color: var(--texto-suave); }
 .texto-grande { font-size: var(--fs-texto); line-height: 1.6; margin: 14px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
-.detalle { margin-top: 16px; border-top: 1px solid var(--borde); padding-top: 12px; }
-.detalle summary { cursor: pointer; font-weight: 600; color: var(--primario); font-size: clamp(15px, 0.9rem + 0.2vw, 17px); padding: 6px 0; }
-.diff { font-size: calc(var(--fs-texto) * 0.92); }
-.quitado { background: var(--quitado-bg); color: var(--quitado); text-decoration: line-through; padding: 2px 4px; border-radius: 4px; }
-.agregado { background: var(--agregado-bg); color: var(--agregado); font-weight: 700; padding: 2px 4px; border-radius: 4px; }
-.leyenda { font-size: clamp(13px, 0.8rem + 0.2vw, 15px); color: var(--texto-suave); margin: 10px 0 0; }
 
 .pie {
   text-align: center; color: var(--texto-suave); font-size: clamp(12px, 0.75rem + 0.2vw, 14px);
@@ -193,7 +185,6 @@ textarea:focus { outline: none; border-color: var(--primario); box-shadow: 0 0 0
     clip: rect(0 0 0 0); white-space: nowrap;
   }
   .acciones { flex-direction: row; flex-wrap: wrap; }
-  .resultado .btn-secundario { flex: 1 1 auto; }
   .btn-principal { flex: 1 1 220px; width: auto; }
   .btn-secundario { flex: 0 1 auto; width: auto; }
 }
@@ -207,9 +198,6 @@ textarea:focus { outline: none; border-color: var(--primario); box-shadow: 0 0 0
   }
   .contenedor:has(#resultado:not([hidden])) .tarjeta { height: 100%; }
   .contenedor:has(#resultado:not([hidden])) textarea { min-height: 260px; }
-  /* En la columna del resultado: Escuchar a todo lo ancho y los otros dos a la mitad */
-  .resultado .btn-principal { flex-basis: 100%; }
-  .resultado .btn-secundario { flex: 1 1 0; }
 }
 
 /* ---------- Pantallas bajas (celular acostado) ---------- */

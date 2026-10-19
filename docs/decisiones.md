@@ -41,7 +41,7 @@ modelo los escribe con mayúscula.
 - Dictado por voz (Web Speech API, `es-MX`) para quien no quiere escribir. Requiere Chrome/Edge y HTTPS o localhost.
 - Lectura en voz alta del resultado (`speechSynthesis`) para quien no puede leer con fluidez.
 - Texto a 22–24 px, alto contraste, sin jerga técnica en los mensajes.
-- "Ver qué cambió" va plegado: rojo tachado = antes, verde = después. No se muestra por defecto para no abrumar.
+- Sólo se muestra el texto corregido con dos acciones: Escuchar y Copiar. Se quitaron "Ver qué cambió" y "Seguir editando" para simplificar (2026-10-19).
 - No hay historial de chat: cada corrección es independiente y el texto no se guarda.
 
 ## Pendientes / ideas
