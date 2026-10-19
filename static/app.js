@@ -62,7 +62,7 @@
       mostrarError(e.message || "Ocurrió un problema. Intenta de nuevo.");
     } finally {
       btnCorregir.disabled = false;
-      btnCorregir.textContent = "Corregir";
+      btnCorregir.textContent = "Recibir";
     }
   }
 
