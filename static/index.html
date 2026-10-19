@@ -18,15 +18,9 @@
 
   <main class="contenedor">
     <section class="tarjeta">
-      <label for="texto" class="titulo">Escribe o dicta tu texto</label>
-      <p class="ayuda">Puedes escribir aquí o tocar el micrófono y hablar.</p>
-      <div class="area">
-        <textarea id="texto" rows="5" placeholder="Ejemplo: oy no boy a ir a trabajar por que estoy enfermo" autofocus></textarea>
-        <button id="btn-mic" class="btn-mic" type="button" title="Dictar con la voz" aria-label="Dictar con la voz">
-          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V22h2v-3.08A7 7 0 0 0 19 12h-2z"/></svg>
-          <span id="mic-texto" class="mic-texto">Dictar</span>
-        </button>
-      </div>
+      <label for="texto" class="titulo">Escribe tu texto</label>
+      <p class="ayuda">Escribe la frase y toca Recibir para corregirla.</p>
+      <textarea id="texto" rows="5" placeholder="Ejemplo: oy no boy a ir a trabajar por que estoy enfermo" autofocus></textarea>
       <div class="acciones">
         <button id="btn-corregir" class="btn-principal" type="button">Recibir</button>
         <button id="btn-limpiar" class="btn-secundario" type="button">Borrar</button>

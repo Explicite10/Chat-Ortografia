@@ -1,8 +1,8 @@
 /* =========================================================================
    Editor · estilos responsivos
    Móvil primero. Puntos de quiebre:
-     - < 600px   móvil: una columna, botones a todo lo ancho, micrófono bajo el cuadro de texto
-     - ≥ 600px   tablet: micrófono dentro del cuadro, botones en fila
+     - < 600px   móvil: una columna, botones a todo lo ancho
+     - ≥ 600px   tablet: botones en fila
      - ≥ 1100px  escritorio: entrada y resultado lado a lado cuando hay resultado
    Tipografía y espacios fluidos con clamp() para que escalen entre tamaños.
    ========================================================================= */
@@ -95,8 +95,7 @@ button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .titulo { font-size: var(--fs-titulo); font-weight: 700; margin: 0; display: block; }
 .ayuda { margin: 6px 0 14px; color: var(--texto-suave); font-size: clamp(14px, 0.85rem + 0.2vw, 16px); }
 
-/* ---------- Cuadro de texto + micrófono (móvil: micrófono abajo) ---------- */
-.area { display: flex; flex-direction: column; gap: 10px; }
+/* ---------- Cuadro de texto ---------- */
 textarea {
   width: 100%;
   font: inherit;
@@ -111,19 +110,6 @@ textarea {
   background: #fff;
 }
 textarea:focus { outline: none; border-color: var(--primario); box-shadow: 0 0 0 4px rgba(15, 76, 129, .15); }
-.btn-mic {
-  border: 2px solid var(--primario); cursor: pointer;
-  background: #fff; color: var(--primario);
-  border-radius: 12px;
-  min-height: var(--alto-boton);
-  font: inherit; font-size: var(--fs-boton); font-weight: 600;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  transition: transform .1s, background .2s, color .2s;
-}
-.btn-mic:hover { background: #eef4fa; }
-.btn-mic.grabando { background: var(--peligro); border-color: var(--peligro); color: #fff; animation: pulso 1s infinite; }
-.btn-mic[disabled] { border-color: #b7c0cc; color: #b7c0cc; background: #fff; cursor: not-allowed; }
-@keyframes pulso { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
 
 /* ---------- Botones ---------- */
 .acciones { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
@@ -141,7 +127,7 @@ textarea:focus { outline: none; border-color: var(--primario); box-shadow: 0 0 0
 .btn-escuchar:hover { background: var(--acento-hover); }
 .btn-secundario { background: #fff; color: var(--primario); border: 2px solid var(--borde); }
 .btn-secundario:hover { border-color: var(--primario); }
-:is(.btn-principal, .btn-secundario, .btn-mic, textarea):focus-visible { outline: 3px solid #f0a500; outline-offset: 2px; }
+:is(.btn-principal, .btn-secundario, textarea):focus-visible { outline: 3px solid #f0a500; outline-offset: 2px; }
 
 .error { color: var(--peligro); font-weight: 600; margin: 14px 0 0; }
 .advertencia { background: #fff6e0; color: #8a5a00; border-left: 4px solid #f0a500; padding: 10px 14px; border-radius: 8px; margin: 14px 0 0; font-size: clamp(14px, 0.85rem + 0.2vw, 16px); }
@@ -170,20 +156,6 @@ textarea:focus { outline: none; border-color: var(--primario); box-shadow: 0 0 0
 
 /* ---------- Tablet (≥ 600px) ---------- */
 @media (min-width: 600px) {
-  .area { position: relative; display: block; }
-  textarea { padding: 16px 84px 16px 16px; }
-  .btn-mic {
-    position: absolute; right: 12px; top: 12px;
-    width: 60px; height: 60px; min-height: 0; padding: 0;
-    border-radius: 50%; border: none;
-    background: var(--primario); color: #fff;
-  }
-  .btn-mic:hover { background: var(--primario-hover); }
-  .btn-mic[disabled] { background: #b7c0cc; color: #fff; }
-  .mic-texto {
-    position: absolute; width: 1px; height: 1px; overflow: hidden;
-    clip: rect(0 0 0 0); white-space: nowrap;
-  }
   .acciones { flex-direction: row; flex-wrap: wrap; }
   .btn-principal { flex: 1 1 220px; width: auto; }
   .btn-secundario { flex: 0 1 auto; width: auto; }

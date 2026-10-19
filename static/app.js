@@ -1,7 +1,6 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const texto = $("texto");
-  const btnMic = $("btn-mic");
   const btnCorregir = $("btn-corregir");
   const btnLimpiar = $("btn-limpiar");
   const btnEscuchar = $("btn-escuchar");
@@ -41,7 +40,7 @@
     const t = texto.value.trim();
     mostrarError("");
     if (!t) {
-      mostrarError("Escribe o dicta algo primero.");
+      mostrarError("Escribe algo primero.");
       texto.focus();
       return;
     }
@@ -133,53 +132,4 @@
     if (voz) u.voice = voz;
     synth.speak(u);
   });
-
-  // ---------- Dictado por voz ----------
-  const Reconocimiento = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!Reconocimiento) {
-    btnMic.disabled = true;
-    btnMic.title = "Este navegador no permite dictar (usa Chrome o Edge).";
-  } else {
-    const rec = new Reconocimiento();
-    rec.lang = "es-MX";
-    rec.continuous = true;
-    rec.interimResults = true;
-    let grabando = false;
-    let base = "";
-
-    rec.onresult = (ev) => {
-      let final = "";
-      let parcial = "";
-      for (let i = 0; i < ev.results.length; i++) {
-        const r = ev.results[i];
-        if (r.isFinal) final += r[0].transcript + " ";
-        else parcial += r[0].transcript;
-      }
-      texto.value = (base + final + parcial).replace(/\s+$/, "");
-    };
-    rec.onerror = (ev) => {
-      if (ev.error === "not-allowed") mostrarError("Permite el uso del micrófono para dictar.");
-      else if (ev.error !== "aborted" && ev.error !== "no-speech") mostrarError("No se pudo escuchar. Intenta de nuevo.");
-      detener();
-    };
-    rec.onend = () => { if (grabando) detener(); };
-
-    function iniciar() {
-      mostrarError("");
-      base = texto.value ? texto.value.replace(/\s+$/, "") + " " : "";
-      grabando = true;
-      btnMic.classList.add("grabando");
-      btnMic.title = "Detener dictado";
-      $("mic-texto").textContent = "Detener";
-      rec.start();
-    }
-    function detener() {
-      grabando = false;
-      btnMic.classList.remove("grabando");
-      btnMic.title = "Dictar con la voz";
-      $("mic-texto").textContent = "Dictar";
-      try { rec.stop(); } catch {}
-    }
-    btnMic.addEventListener("click", () => (grabando ? detener() : iniciar()));
-  }
 })();

@@ -1,7 +1,7 @@
 # Corrector de ortografía
 
 Chat de una sola pantalla para corregir la ortografía de frases en español. Pensado para personas con poca práctica
-escribiendo: letras grandes, dictado por voz, lectura en voz alta del resultado y resaltado de lo que cambió.
+escribiendo: letras grandes y lectura en voz alta del resultado.
 
 - **Backend:** FastAPI + [Ollama](https://ollama.com) con el modelo `qwen3:4b-instruct` (open source, ~2.5 GB, cabe en 8 GB de VRAM).
 - **Frontend:** HTML/CSS/JS sin dependencias, servido por la misma API.

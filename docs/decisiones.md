@@ -38,7 +38,7 @@ modelo los escribe con mayúscula.
 ## Decisiones de UX para usuarios con baja alfabetización
 
 - Una sola pantalla, un botón principal grande ("Corregir").
-- Dictado por voz (Web Speech API, `es-MX`) para quien no quiere escribir. Requiere Chrome/Edge y HTTPS o localhost.
+- Sin dictado por voz: se quitó el micrófono a petición del equipo (2026-10-19). Sólo se escribe.
 - Lectura en voz alta del resultado (`speechSynthesis`) para quien no puede leer con fluidez.
 - Texto a 22–24 px, alto contraste, sin jerga técnica en los mensajes.
 - Sólo se muestra el texto corregido con dos acciones: Escuchar y Copiar. Se quitaron "Ver qué cambió" y "Seguir editando" para simplificar (2026-10-19).
