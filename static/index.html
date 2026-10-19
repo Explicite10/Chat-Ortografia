@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Corrector de ortografía</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">✓</span>
+      <span class="brand-name">Corrector de ortografía</span>
+    </div>
+    <span id="estado" class="estado" title="Estado del modelo">Conectando…</span>
+  </header>
+
+  <main class="contenedor">
+    <section class="tarjeta">
+      <label for="texto" class="titulo">Escribe o dicta tu texto</label>
+      <p class="ayuda">Puedes escribir aquí o tocar el micrófono y hablar.</p>
+      <div class="area">
+        <textarea id="texto" rows="5" placeholder="Ejemplo: oy no boy a ir a trabajar por que estoy enfermo" autofocus></textarea>
+        <button id="btn-mic" class="btn-mic" type="button" title="Dictar con la voz" aria-label="Dictar con la voz">
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V22h2v-3.08A7 7 0 0 0 19 12h-2z"/></svg>
+        </button>
+      </div>
+      <div class="acciones">
+        <button id="btn-corregir" class="btn-principal" type="button">Corregir</button>
+        <button id="btn-limpiar" class="btn-secundario" type="button">Borrar</button>
+      </div>
+      <p id="error" class="error" role="alert" hidden></p>
+    </section>
+
+    <section id="resultado" class="tarjeta resultado" hidden>
+      <div class="resultado-cabecera">
+        <h2 class="titulo">Texto corregido</h2>
+        <span id="resumen" class="chip"></span>
+      </div>
+      <p id="corregido" class="texto-grande" aria-live="polite"></p>
+      <div class="acciones">
+        <button id="btn-escuchar" class="btn-principal btn-escuchar" type="button">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg>
+          Escuchar
+        </button>
+        <button id="btn-copiar" class="btn-secundario" type="button">Copiar</button>
+        <button id="btn-usar" class="btn-secundario" type="button">Seguir editando</button>
+      </div>
+      <details class="detalle">
+        <summary>Ver qué cambió</summary>
+        <p id="diff" class="texto-grande diff"></p>
+        <p class="leyenda"><span class="quitado">rojo</span> = cómo estaba &nbsp;·&nbsp; <span class="agregado">verde</span> = cómo queda</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="pie">Herramienta interna · El texto se procesa en un servidor de la empresa, no sale a internet.</footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>
