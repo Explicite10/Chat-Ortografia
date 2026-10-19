@@ -199,12 +199,14 @@
       grabando = true;
       btnMic.classList.add("grabando");
       btnMic.title = "Detener dictado";
+      $("mic-texto").textContent = "Detener";
       rec.start();
     }
     function detener() {
       grabando = false;
       btnMic.classList.remove("grabando");
       btnMic.title = "Dictar con la voz";
+      $("mic-texto").textContent = "Dictar";
       try { rec.stop(); } catch {}
     }
     btnMic.addEventListener("click", () => (grabando ? detener() : iniciar()));
