@@ -24,6 +24,9 @@ class RespuestaCorreccion(BaseModel):
     cambios: list[dict]
     num_cambios: int
     modelo: str
+    intentos: int
+    advertencias: list[str]
+    validado_por_juez: bool | None
 
 
 @app.post("/api/corregir", response_model=RespuestaCorreccion)
@@ -34,16 +37,19 @@ async def api_corregir(peticion: PeticionCorreccion):
     if len(texto) > settings.max_chars:
         raise HTTPException(413, f"El texto es muy largo (máximo {settings.max_chars} caracteres).")
     try:
-        corregido = await corregir(texto)
+        res = await corregir(texto)
     except CorrectorError as e:
         raise HTTPException(503, str(e))
-    cambios = calcular_cambios(texto, corregido)
+    cambios = calcular_cambios(texto, res.corregido)
     return RespuestaCorreccion(
         original=texto,
-        corregido=corregido,
+        corregido=res.corregido,
         cambios=cambios,
         num_cambios=contar_cambios(cambios),
         modelo=settings.ollama_model,
+        intentos=res.intentos,
+        advertencias=res.advertencias,
+        validado_por_juez=res.validado_por_juez,
     )
 
 

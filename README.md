@@ -5,7 +5,8 @@ escribiendo: letras grandes, dictado por voz, lectura en voz alta del resultado 
 
 - **Backend:** FastAPI + [Ollama](https://ollama.com) con el modelo `qwen3:4b-instruct` (open source, ~2.5 GB, cabe en 8 GB de VRAM).
 - **Frontend:** HTML/CSS/JS sin dependencias, servido por la misma API.
-- Todo corre en el servidor de la empresa; el texto no sale a internet.
+- **Validación en 6 capas** (estructura, extranjerismos, diccionario Hunspell es_MX, fidelidad fonética, palabras sin corregir, juez) con reintento automático. Ver [docs/decisiones.md](docs/decisiones.md).
+- Sólo español. Todo corre en el servidor de la empresa; el texto no sale a internet.
 
 ## Correr en local (Mac)
 
@@ -51,7 +52,8 @@ pytest -q
 ## Estructura
 
 ```
-app/        config.py (variables), corrector.py (prompt + cliente Ollama), diff.py (resaltado), main.py (rutas)
+app/        config.py (variables), corrector.py (prompt + reintentos + juez), validacion.py (capas), diff.py (resaltado), main.py (rutas)
+app/dic/    diccionario Hunspell es_MX (LibreOffice, licencia LGPL/GPL/MPL)
 static/     index.html, styles.css, app.js
 tests/      pruebas unitarias del diff y la limpieza de respuesta
 docs/       notas de diseño y decisiones

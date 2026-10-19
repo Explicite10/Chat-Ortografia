@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     ollama_model: str = "qwen3:4b-instruct"
     max_chars: int = 2000
     ollama_timeout: float = 60.0
+    usar_juez: bool = True
 
 
 settings = Settings()

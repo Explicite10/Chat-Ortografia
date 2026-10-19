@@ -12,6 +12,7 @@
   const corregidoEl = $("corregido");
   const diffEl = $("diff");
   const resumen = $("resumen");
+  const advertencia = $("advertencia");
   const estado = $("estado");
 
   let ultimoCorregido = "";
@@ -87,6 +88,12 @@
           diffEl.appendChild(a);
         }
       }
+    }
+    if (d.advertencias && d.advertencias.length) {
+      advertencia.textContent = "Revisa el resultado con cuidado: " + d.advertencias.join(" ");
+      advertencia.hidden = false;
+    } else {
+      advertencia.hidden = true;
     }
     if (d.num_cambios === 0) {
       resumen.textContent = "Sin errores, ¡bien escrito!";
