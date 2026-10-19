@@ -1,13 +1,19 @@
-# Uso en servidor con GPU NVIDIA (srviatwo):
+# Chat-Ortografia · despliegue en servidor con GPU NVIDIA
+#
 #   docker compose up -d --build
-#   docker compose exec ollama ollama pull qwen3:4b-instruct
+#
+# La primera vez descarga el modelo (~2.5 GB) automáticamente; tarda unos minutos.
+# La app queda en http://<servidor>:${APP_PORT:-18620}
+# Ollama NO se expone fuera de Docker (sólo la API lo usa por la red interna).
+name: chat-ortografia
+
 services:
   ollama:
     image: ollama/ollama:latest
     volumes:
       - ollama_models:/root/.ollama
-    ports:
-      - "11434:11434"
+    environment:
+      OLLAMA_KEEP_ALIVE: 24h        # mantiene el modelo en la GPU para responder rápido
     deploy:
       resources:
         reservations:
@@ -15,18 +21,39 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
     restart: unless-stopped
+
+  # Descarga el modelo una sola vez (si ya está en el volumen, termina en segundos)
+  ollama-pull:
+    image: ollama/ollama:latest
+    environment:
+      OLLAMA_HOST: ollama:11434
+    entrypoint: ["ollama", "pull", "${OLLAMA_MODEL:-qwen3:4b-instruct}"]
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: "no"
 
   api:
     build: .
     environment:
       OLLAMA_URL: http://ollama:11434
       OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:4b-instruct}
+      OLLAMA_TIMEOUT: ${OLLAMA_TIMEOUT:-120}
       MAX_CHARS: ${MAX_CHARS:-2000}
+      USAR_JUEZ: ${USAR_JUEZ:-true}
     ports:
-      - "8090:8000"
+      - "${APP_PORT:-18620}:8000"
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
+      ollama-pull:
+        condition: service_completed_successfully
     restart: unless-stopped
 
 volumes:

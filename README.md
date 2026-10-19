@@ -13,7 +13,7 @@ escribiendo: letras grandes, dictado por voz, lectura en voz alta del resultado 
 ```bash
 brew install ollama && ollama serve &
 ollama pull qwen3:4b-instruct
-python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt -r requirements-dev.txt
 cp .env.example .env
 uvicorn app.main:app --reload --port 8000
 ```
@@ -22,12 +22,14 @@ Abre <http://localhost:8000>.
 
 ## Correr en el servidor (Docker + GPU)
 
+Requisitos: Docker con Compose v2 y NVIDIA Container Toolkit.
+
 ```bash
 docker compose up -d --build
-docker compose exec ollama ollama pull qwen3:4b-instruct
 ```
 
-La app queda en el puerto **8090**. Para cambiar de modelo, edita `OLLAMA_MODEL` en `.env`.
+La primera vez el servicio `ollama-pull` descarga el modelo (~2.5 GB) y la API espera a que termine.
+La app queda en el puerto **18620** (cámbialo con `APP_PORT` en `.env`). Ollama no se expone fuera de Docker.
 
 ## API
 
